@@ -1,6 +1,8 @@
-import { User } from "../models/user.model";
+import { User } from "../models/user.model.js";
+import bcryptjs from 'bcryptjs';
+import { generateTokenAndSetCookie } from "../utils/generateToken.js";
 
-export async function Signup (req, res, next) {
+export async function signup (req, res, next) {
     try {
         const {email, firstName, lastName, password, userName} = req.body;
 
@@ -29,23 +31,33 @@ export async function Signup (req, res, next) {
             return res.status(400).json({success:false, message: 'Username already exists'})
         }
 
-        const Profile_Pics = ['/avatarOne.jpg', '/avatarTwo.jpg', '/AvatarThree.png']
+        const salt = await bcryptjs.genSalt(10)
+        const hashedPassword = await bcryptjs.hash(password, salt)
+
+        const Profile_Pics = ["/avatarOne.jpg", "/avatarTwo.jpg", "/AvatarThree.png", "/AvatarFour.png", "/AvatarFive.png"]
 
         const image = Profile_Pics[Math.floor(Math.random() * Profile_Pics.length)];
 
         const newUser = new User({
             email,
-            password,
+            password: hashedPassword,
             userName,
             firstName,
             lastName,
             image,
         }) 
-
-        await newUser.save() // Save the user to the database
-
-        return res.status(201).json({ success: true, message: "User registered successfully", user: newUser });
-
+        
+            generateTokenAndSetCookie(newUser._id, res)
+            await newUser.save() // Save the user to the database
+            return res.status(201).json({ 
+                success: true, 
+                message: "User registered successfully", 
+                user: { 
+                    ...newUser._doc, 
+                    password: ""  //remove password from the response
+                } 
+            });
+        
     } catch (error) {
         console.log('Error in controller signup', error.message)
         res.status(500).json({success:false, message: 'Server Error'})
@@ -53,11 +65,11 @@ export async function Signup (req, res, next) {
 }
 
 
-export async function Login (req, res, next) {
+export async function login (req, res, next) {
     res.send('Welcome to the Login')
 }
 
 
-export async function Logout (req, res, next) {
+export async function logout (req, res, next) {
     res.send('Welcome to the LogOut')
 }

@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const userSchema = mongoose.Schema({
+const userSchema = new mongoose.Schema({
     userName: {
         type: String,
         required: true,
@@ -10,19 +10,18 @@ const userSchema = mongoose.Schema({
     firstName: {
         type: String,
         required: true,
-        unique: true,
-    }, 
-
-    LastName: {
+    },
+    
+    lastName: {
         type: String,
         required: true,
-        unique: true,
     },
-
+    
     email: {
         type: String,
         required: true,
         unique: true,
+        lowercase: true,
     },
 
     password: {
@@ -36,9 +35,9 @@ const userSchema = mongoose.Schema({
     },
 
     searchHistory: {
-        type: Array,
+        type: [String],
         default: [],
     }
-})
+}, { timestamps: true });
 
 export const User = mongoose.model('User', userSchema);
