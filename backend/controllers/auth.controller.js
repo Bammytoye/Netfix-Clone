@@ -71,5 +71,11 @@ export async function login (req, res, next) {
 
 
 export async function logout (req, res, next) {
-    res.send('Welcome to the LogOut')
+    try {
+        res.clearCookie('netflixToken');
+        res.status(200).json({ success: true, message: 'User Log Out Successfully'})
+    } catch (error) {
+        console.log ("Error in logout controller", error.message);
+        res.status(500).json({success: false, message: 'Server Error'})
+    }
 }
