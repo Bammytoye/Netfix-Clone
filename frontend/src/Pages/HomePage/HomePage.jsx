@@ -1,8 +1,16 @@
 import React from 'react'
+import NotUserScreen from './NotUserScreen';
+import UserScreen from './UserScreen';
 
 function HomePage() {
+    const user = false;
+
     return (
-        <div>HomePage</div>
+        <div>
+            {
+                user ? <UserScreen /> : <NotUserScreen />
+            }
+        </div>
     )
 }
 
