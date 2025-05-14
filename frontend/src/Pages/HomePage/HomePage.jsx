@@ -1,9 +1,10 @@
 import React from 'react'
-import NotUserScreen from './NotUserScreen';
-import UserScreen from './UserScreen';
+import NotUserScreen from './NotUserScreen/NotUserScreen';
+import UserScreen from './UserScreen/UserScreen';
+import { useAuthStore } from '../../store/AuthUser';
 
 function HomePage() {
-    const user = false;
+    const { user } = useAuthStore();
 
     return (
         <div>

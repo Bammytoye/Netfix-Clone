@@ -1,16 +1,22 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useAuthStore } from '../../store/AuthUser';
 
 function SignUp() {
-    const [firstname, setFirstName] = useState('')
-    const [lastname, setLastName] = useState('')
-    const [username, setUserName] = useState('')
-    const [email, setEmail] = useState('')
+    const {searchParams} = new URL(document.location)
+    const emailValue = searchParams.get('email')
+    const [firstName, setFirstName] = useState('')
+    const [lastName, setLastName] = useState('')
+    const [userName, setUserName] = useState('')
+    const [email, setEmail] = useState(emailValue || '')
     const [password, setPassword] = useState('')
+
+    const { signup } = useAuthStore()
+
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        console.log(firstname, lastname, username, email, password)
+        signup({firstName, lastName, userName, email, password})
     }
 
     return (
@@ -38,7 +44,7 @@ function SignUp() {
                                     type="text"
                                     id='firstName'
                                     placeholder='Bammy'
-                                    value={firstname}
+                                    value={firstName}
                                     onChange={(e) => setFirstName(e.target.value)}
                                     className='w-full px-3 py-2 mt-1 border border-gray-700 rounded-lg bg-transparent text-white focus:outline-none focus:ring'
                                 />
@@ -52,7 +58,7 @@ function SignUp() {
                                     type="text"
                                     id='lastName'
                                     placeholder='Toye'
-                                    value={lastname}
+                                    value={lastName}
                                     onChange={(e) => setLastName(e.target.value)}
                                     className='w-full px-3 py-2 mt-1 border border-gray-700 rounded-lg bg-transparent text-white focus:outline-none focus:ring'
                                 />
@@ -66,7 +72,7 @@ function SignUp() {
                                     type="text"
                                     id='userName'
                                     placeholder='zeke123'
-                                    value={username}
+                                    value={userName}
                                     onChange={(e) => setUserName(e.target.value)}
                                     className='w-full px-3 py-2 mt-1 border border-gray-700 rounded-lg bg-transparent text-white focus:outline-none focus:ring'
                                 />
