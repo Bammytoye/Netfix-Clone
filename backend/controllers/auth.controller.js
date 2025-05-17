@@ -15,16 +15,16 @@ export async function signup(req, res, next) {
             return res.status(400).json({ success: false, message: 'Invalid Email, Please try again!' })
         }
 
-        // First name validation
-        const nameRegex = /^[A-Za-z]{2,}$/;
-        if (!nameRegex.test(firstName)) {
-            return res.status(400).json({ success: false, message: 'First name must contain only letters and be at least 2 characters long' });
-        }
+        // // First name validation
+        // const nameRegex = /^[A-Za-z]{2,}$/;
+        // if (!nameRegex.test(firstName)) {
+        //     return res.status(400).json({ success: false, message: 'First name must contain only letters and be at least 2 characters long' });
+        // }
 
-        // Last name validation
-        if (!nameRegex.test(lastName)) {
-            return res.status(400).json({ success: false, message: 'Last name must contain only letters and be at least 2 characters long' });
-        }
+        // // Last name validation
+        // if (!nameRegex.test(lastName)) {
+        //     return res.status(400).json({ success: false, message: 'Last name must contain only letters and be at least 2 characters long' });
+        // }
 
         if (password.length < 4) {
             return res.status(400).json({ success: false, message: 'Password must be at least 4 characters long' })

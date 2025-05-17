@@ -7,11 +7,11 @@ function HomePage() {
     const { user } = useAuthStore();
 
     return (
-        <div>
+        <>
             {
                 user ? <UserScreen /> : <NotUserScreen />
             }
-        </div>
+        </>
     )
 }
 
