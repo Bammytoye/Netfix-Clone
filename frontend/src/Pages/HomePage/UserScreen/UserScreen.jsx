@@ -9,6 +9,15 @@ function UserScreen() {
     const { trendingContent } = useFetchTrending();
     console.log('trendingContent:', trendingContent)
 
+    //TODO Add a loading spinner
+    if (!trendingContent) return (
+        <div className='h-screen text-white relative'>
+            <NavBar />
+
+            <div className='absolute top-0 left-0 w-full h-full bg-black/50 flex items-center justify-center -z-10 shimmer' />
+        </div>
+    )
+
     return (
         <>
             <div className='relative h-screen text-white'>
@@ -32,7 +41,7 @@ function UserScreen() {
                             {
                                 trendingContent?.release_date?.split('-')[0] ||
                                 trendingContent?.first_air_date?.split('-')[0]
-                            }{' '}| { trendingContent?.adult ? '18+' : 'PG-13'}
+                            }{' '}| {trendingContent?.adult ? '18+' : 'PG-13'}
                         </p>
 
                         <p className='mt-4 text-lg line-clamp-3'>
@@ -44,14 +53,14 @@ function UserScreen() {
                     </div>
 
                     <div className='flex mt-4'>
-                        <Link to='/watch/1234'
+                        <Link to={`/watch/${trendingContent?.id}`}
                             className='bg-white hover:bg-white/80 text-black px-4 py-2 mr-4 rounded-lg flex items-center gap-2'
                         >
                             <Play className='size-6 inline-block mr-2 fill-black' />
                             Play
                         </Link>
 
-                        <Link to='/watch/1234'
+                        <Link to={`/watch/${trendingContent?.id}`}
                             className='bg-gray-500/70 hover:bg-gray-500 text-white py-2 px-4 rounded-lg flex items-center'
                         >
                             <Info className='size-6 inline-block mr-2' />
