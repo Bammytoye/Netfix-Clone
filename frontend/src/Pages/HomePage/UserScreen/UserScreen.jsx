@@ -3,13 +3,17 @@ import NavBar from '../../../components/NavBar';
 import { Link } from 'react-router-dom';
 import { Info, Play } from 'lucide-react';
 import useFetchTrending from '../../../hooks/useFetchTrending';
-import { ORIGINAL_IMG_BASE_URL } from '../../../utils/constant';
+import { MOVIE_CATEGORIES, ORIGINAL_IMG_BASE_URL, TV_CATEGORIES } from '../../../utils/constant';
+import MovieSlider from '../../../components/MovieSlider';
+import { useContentStore } from '../../../store/content';
+import TvSlider from '../../../components/TvSlider';
 
 function UserScreen() {
     const { trendingContent } = useFetchTrending();
-    console.log('trendingContent:', trendingContent)
+    const { contentType } = useContentStore()
 
-    //TODO Add a loading spinner
+
+
     if (!trendingContent) return (
         <div className='h-screen text-white relative'>
             <NavBar />
@@ -69,6 +73,17 @@ function UserScreen() {
                     </div>
                 </div>
             </div>
+
+            <div className="flex flex-col gap-10 bg-black py-10">
+                {contentType === "movie"
+                    ? MOVIE_CATEGORIES.map((category) => (
+                        <MovieSlider key={category} category={category} />
+                    ))
+                    : TV_CATEGORIES.map((category) => (
+                        <TvSlider key={category} category={category} />
+                    ))}
+            </div>
+
         </>
     )
 }
