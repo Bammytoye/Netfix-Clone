@@ -69,7 +69,7 @@ function NavBar() {
                             Tv Shows
                         </Link>
 
-                        <Link to={'/search'}
+                        <Link to={'/history'}
                             className='block hover:underline p-2'
                             onClick={toggleOpen}
                         >

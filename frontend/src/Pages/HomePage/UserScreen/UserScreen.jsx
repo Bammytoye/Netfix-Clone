@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import NavBar from '../../../components/NavBar';
 import { Link } from 'react-router-dom';
 import { Info, Play } from 'lucide-react';
@@ -11,7 +11,7 @@ import TvSlider from '../../../components/TvSlider';
 function UserScreen() {
     const { trendingContent } = useFetchTrending();
     const { contentType } = useContentStore()
-
+    const [imgLoading, setImgLoading] = useState(true)
 
 
     if (!trendingContent) return (
@@ -27,8 +27,13 @@ function UserScreen() {
             <div className='relative h-screen text-white'>
                 <NavBar />
 
+                {imgLoading && (
+                    <div className='absolute top-0 left-0 w-full h-full bg-black/50 flex items-center justify-center -z-10 shimmer' />
+                )}
+
                 <img src={ORIGINAL_IMG_BASE_URL + trendingContent?.backdrop_path} alt="Hero Image"
                     className='absolute top-0 left-0 w-full h-full object-cover -z-50'
+                    onLoad={() => { setImgLoading(false) }}
                 />
 
                 <div className='absolute top-0 left-0 w-full h-full bg-black/50 -z-50' aria-hidden='true' />
