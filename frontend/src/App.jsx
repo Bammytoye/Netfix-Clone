@@ -8,6 +8,7 @@ import { useAuthStore } from "./store/AuthUser"
 import { useEffect } from "react"
 import { Loader } from "lucide-react"
 import WatchPage from "./Pages/WatchPage/WatchPage"
+import Search from "./Pages/SearchPage/Search"
 
 function App() {
   const { user, isAuthChecking, authCheck } = useAuthStore()
@@ -34,6 +35,8 @@ function App() {
         <Route path='/login' element={ !user ? <Login /> : <Navigate to={"/"} /> } />
         <Route path='/register' element={ !user ? <SignUp /> : <Navigate to={"/"} />} />
         <Route path='/watch/:id' element={ user ? <WatchPage /> : <Navigate to={"/login"} />} />
+        
+        <Route path='/search' element={ user ? <Search /> : <Navigate to={"/login"} />} />
       </Routes>
       <Footer />
 
