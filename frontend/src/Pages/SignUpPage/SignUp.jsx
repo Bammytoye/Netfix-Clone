@@ -11,7 +11,7 @@ function SignUp() {
     const [email, setEmail] = useState(emailValue || '')
     const [password, setPassword] = useState('')
 
-    const { signup } = useAuthStore()
+    const { signup, isSigningUp } = useAuthStore()
 
 
     const handleSubmit = (e) => {
@@ -108,8 +108,10 @@ function SignUp() {
                         </div>
 
                         {/* Submit Button */}
-                        <button className='w-full py-2 bg-red-600 text-white font-semibold rounded-md hover:bg-red-700 transition-colors'>
-                            Register
+                        <button 
+                        disabled={isSigningUp}
+                        className='w-full py-2 bg-red-600 text-white font-semibold rounded-md hover:bg-red-700 transition-colors'>
+                            { isSigningUp ? 'Loading...' : 'Register'}
                         </button>
                     </form>
 

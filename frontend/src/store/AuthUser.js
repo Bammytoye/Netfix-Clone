@@ -52,7 +52,7 @@ export const useAuthStore = create((set) => ({
         try {
             const response = await axios.get('/api/v1/auth/authCheck');
             set({ user: response.data.user, isAuthChecking: false });
-        } catch (error) {
+        } catch {
             set({ isAuthChecking: false, user: null });
             // toast.error(error?.response?.data?.message || 'Server error');
         }

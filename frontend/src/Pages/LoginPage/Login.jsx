@@ -5,7 +5,7 @@ import { useAuthStore } from '../../store/AuthUser';
 function Login() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const { login } = useAuthStore()
+    const { login, isLoggingIn } = useAuthStore()
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -59,8 +59,10 @@ function Login() {
                         </div>
 
                         {/* Submit Button */}
-                        <button className='w-full py-2 bg-red-600 text-white font-semibold rounded-md hover:bg-red-700 transition-colors'>
-                            Log in
+                        <button 
+                        disabled={isLoggingIn}
+                        className='w-full py-2 bg-red-600 text-white font-semibold rounded-md hover:bg-red-700 transition-colors'>
+                            {isLoggingIn ? 'Loading...' : 'Log in'}
                         </button>
                     </form>
 
