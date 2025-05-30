@@ -116,6 +116,7 @@ function Search() {
                                     <Link
                                         key={result.id}
                                         to={'/watch/' + result.id}
+                                        onClick={() => {setContentType(activeTab)}}
                                         className='flex flex-col'
                                     >
                                         <img
