@@ -46,7 +46,7 @@ function Search() {
         }
     }
 
-    console.log('results:', results)
+    // console.log('results:', results)
 
     return (
         <div className='bg-black min-h-screen text-white'>

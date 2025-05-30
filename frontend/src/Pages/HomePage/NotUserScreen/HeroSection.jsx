@@ -10,7 +10,7 @@ function HeroSection() {
         e.preventDefault();
         navigate('/register?email=' + email)
 
-        console.log(email)
+        // console.log(email)
     }
 
     return (
