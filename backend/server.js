@@ -20,7 +20,7 @@ const PORT = ENV_VARS.PORT || 3010;
 const __dirname = path.resolve(); 
 
 app.use(cors({
-    origin: ENV_VARS.NODE_ENV === 'production' ? 'https://your-app.vercel.app' : 'http://localhost:5173',
+    origin: ENV_VARS.NODE_ENV === 'production' ? 'https://netfix-clone-liard.vercel.app/' : 'http://localhost:5173',
     credentials: true,  // needed for cookies/JWT
 }));
 
