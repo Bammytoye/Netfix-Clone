@@ -1,6 +1,10 @@
 import express from 'express'
 import cookieParser from 'cookie-parser'
 import path from 'path'
+import cors from 'cors'
+
+import { setServers } from "node:dns/promises";
+setServers(["1.1.1.1", "8.8.8.8"]); //... for dns
 
 import authRoutes from './routes/auth.route.js'
 import moviesRoutes from './routes/movie.route.js'
@@ -12,8 +16,13 @@ import { connectDB } from './config/database.js'
 import { protectedRoutes } from './middleware/protectedRoutes.js'
 
 const app = express();
-const PORT = ENV_VARS.PORT;
+const PORT = ENV_VARS.PORT || 3010;
 const __dirname = path.resolve(); 
+
+app.use(cors({
+    origin: ENV_VARS.NODE_ENV === 'production' ? 'https://your-app.vercel.app' : 'http://localhost:5173',
+    credentials: true,  // needed for cookies/JWT
+}));
 
 app.use(express.json()); //... for req.body 
 app.use(cookieParser()); //....middleware
